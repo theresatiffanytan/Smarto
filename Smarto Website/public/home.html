@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css" />
+    <title>Home Page</title>
+</head>
+
+
+<body>
+          
+          <img class="home-page" src="smarto_home-01.png" alt=""/>
+  
+
+          <li>
+            <a href="index.html" class="btn">Log Out</a>
+          </li>
+      
+         <img id="myimg" src="https://firebasestorage.googleapis.com/v0/b/smarto-project.appspot.com/o/images%2FLinearRegression(Testing%20set).jpg?alt=media&token=0fef69d3-de4d-4a36-8457-95f5a0b0fdcf" >
+         <div id="square1">
+         </div>
+         <div id="square2">
+         </div>
+         <img id="myimg1" src="https://firebasestorage.googleapis.com/v0/b/smarto-project.appspot.com/o/images%2FRoomprediction.jpg?alt=media&token=d100475d-ccc1-491e-85af-a607cb1fc9bd" >
+         <div id="square3">
+         </div>
+         <div id="square4">
+         </div>
+
+         
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.js"></script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+    import { getDatabase, ref, child, get, onValue } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-database.js";
+    import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-storage.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+    apiKey: "AIzaSyAEr64uH3_2bHcB-fani2bQLOVSfdDIFQc",
+    authDomain: "smarto-project.firebaseapp.com",
+    databaseURL: "https://smarto-project-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "smarto-project",
+    storageBucket: "smarto-project.appspot.com",
+    messagingSenderId: "22440119739",
+    appId: "1:22440119739:web:a8ad3042b0378ac2c0c89e"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase (app);
+    const dbRef = ref(db);
+    const storage = getStorage (app);
+    const stoRef = sRef (storage);
+    const pathReference= sRef(storage, 'images/LinearRegression(Testing set).jpg', 'images/Roomprediction.jpg');
+    const gsReference = sRef(storage,'gs://smarto-project.appspot.com/images/LinearRegression(Testing set).jpg','gs://smarto-project.appspot.com/images/Roomprediction.jpg' );
+    const httpsReference = sRef(storage, 'https://firebasestorage.googleapis.com/v0/b/smarto-project.appspot.com/o/images%2FLinearRegression(Testing%20set).jpg', 'https://firebasestorage.googleapis.com/v0/b/smarto-project.appspot.com/o/images%2FRoomprediction.jpg?alt=media&token=d100475d-ccc1-491e-85af-a607cb1fc9bd')
+
+    const room1 = ref(db,'room/1/status');
+    onValue(room1, (snapshot) => {
+      if (snapshot.exists()) {
+        console.log("room1:",snapshot.val());
+        if (snapshot.val()=="1") {
+          console.log("room1 occupied");
+          $(document).ready(function() {
+
+          $.when($.get("room1.css"))
+          .done(function(response) {
+              $('<style />').text(response).appendTo($('head'));
+          })
+          })
+          
+        }
+        
+        else {
+          console.log("room1 available");
+          $(document).ready(function() {
+
+          $.when($.get("room1false.css"))
+          .done(function(response) {
+              $('<style />').text(response).appendTo($('head'));
+          })
+          })
+          
+        }
+
+      } else {
+        console.log("No data available");
+      }
+    })
+    
+    const room2 = ref(db,'room/2/status');
+    onValue(room2, (snapshot) => {
+      if (snapshot.exists()) {
+        console.log("room2:",snapshot.val());
+        if (snapshot.val()=="1") {
+          console.log("room2 occupied");
+          $(document).ready(function() {
+
+          $.when($.get("room2.css"))
+          .done(function(response) {
+              $('<style />').text(response).appendTo($('head'));
+          })
+          })
+        }
+        
+        else {
+          console.log("room2 available");
+          $(document).ready(function() {
+
+          $.when($.get("room2false.css"))
+          .done(function(response) {
+              $('<style />').text(response).appendTo($('head'));
+          })
+          })
+          
+        }
+
+      } else {
+        console.log("No data available");
+      }
+    })
+    
+    const uuid1 = ref(db,'room/1/UUID');
+    onValue(uuid1, (snapshot) => {
+      if (snapshot.exists()) {
+        console.log("room1 UUID:",snapshot.val());
+      } else {
+        console.log("room1 UUID: No data available");
+      }
+    })
+
+    const uuid2 = ref(db,'room/2/UUID');
+    onValue(uuid2, (snapshot) => {
+      if (snapshot.exists()) {
+        console.log("room2 UUID:",snapshot.val());
+      } else {
+        console.log("room2 UUID: No data available");
+      }
+    })
+
+    getDownloadURL(ref(storage, 'images/LinearRegression(Testing set).jpg'))
+      .then((url) => {
+      
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = (event) => {
+          const blob = xhr.response;
+        };
+        xhr.open('GET', url);
+        xhr.send();
+
+        const img = document.getElementById('myimg');
+        img.setAttribute('src', url);
+      })
+      .catch((error) => {
+  
+      });
+
+      getDownloadURL(ref(storage, 'images/Roomprediction.jpg'))
+      .then((url) => {
+        
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = (event) => {
+          const blob = xhr.response;
+        };
+        xhr.open('GET', url);
+        xhr.send();
+
+        const img = document.getElementById('myimg1');
+        img.setAttribute('src', url);
+      })
+      .catch((error) => {
+        
+      });
+    
+  </script>
+
+</body>
+</html>

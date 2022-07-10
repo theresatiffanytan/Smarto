@@ -1,0 +1,54 @@
+  .home-page {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+  }
+    
+  #myimg{
+    width: 420px ;
+    height:300px;
+    margin-top: 25px;
+    margin-left: 122px;
+  }
+
+  #myimg1{
+    width: 420px ;
+    height:300px;
+    margin-top: 45px;
+    margin-left: 122px;
+}  
+
+  #square1{
+    width: 280px;
+    height: 280px;
+    background:chartreuse;
+    margin-top: -300px;
+    margin-left: 760px;
+  }
+
+  #square2{
+    width: 280px;
+    height: 280px;
+    background:chartreuse;
+    margin-top: -280px;
+    margin-left: 1154px;
+  }
+
+  #square3{
+    width: 280px;
+    height: 280px;
+    background:chartreuse;
+    margin-top: -285px;
+    margin-left: 760px;
+  }
+
+  #square4{
+    width: 280px;
+    height: 280px;
+    background:chartreuse;
+    margin-top: -280px;
+    margin-left: 1154px;
+  }
